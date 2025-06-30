@@ -11,7 +11,54 @@
 - [LangFlow IDE](./charts/langflow-ide/): Full experience of Langflow, optimized for prototyping and testing new flows. 
 - [LangFlow Runtime](./charts/langflow-runtime/): Productionize Langflow flows as standalone services.
 
+## Steps to deploy on Google Kubernetes Engine
 
+1. **Open Google Cloud Shell**
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/) and click the Cloud Shell icon in the top right.
+
+2. **Authenticate and Set Project**
+   ```sh
+   gcloud auth login
+   gcloud config set project YOUR_PROJECT_ID
+   ```
+
+3. **Create a GKE Cluster**
+  * you can also do this with GUI on the google workspace
+   ```sh
+   gcloud container clusters create langflow-cluster \
+     --zone=us-central1-a \
+     --num-nodes=3
+   gcloud container clusters get-credentials langflow-cluster --zone=us-central1-a
+   ```
+
+4. **Install Helm if not already installed**
+  * Skip this step if ur on Google Cloud Shell
+   ```sh
+   curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+   ```
+
+5. **Add the Langflow Helm Repository**
+   ```sh
+   helm repo add langflow-ai https://langflow-ai.github.io/langflow-helm-charts/
+   helm repo update
+   ```
+
+7. **Deploy Langflow Runtime with custom values.yaml in this repo**
+```sh
+helm install my-langflow-app-with-flow langflow/langflow-runtime \
+  -n langflow \
+  -f https://raw.githubusercontent.com/waydxd/langflow-helm-charts/refs/heads/main/charts/langflow-runtime/values.yaml
+```
+
+8. **Access the Application**
+   - Get the external IP:
+     ```sh
+     kubectl get svc
+     ```
+   - Open the EXTERNAL-IP in your browser.
+   - If succed, you should see detail	"Not Found"
+
+> For more advanced configuration, refer to
 ## Langflow IDE vs Runtime
 
 Langflow offers two distinct Kubernetes charts for deployment: one for the Integrated Development Environment (IDE) and another for the Runtime environment. 
