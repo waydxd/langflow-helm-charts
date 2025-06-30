@@ -11,7 +11,7 @@
 - [LangFlow IDE](./charts/langflow-ide/): Full experience of Langflow, optimized for prototyping and testing new flows. 
 - [LangFlow Runtime](./charts/langflow-runtime/): Productionize Langflow flows as standalone services.
 
-## Steps to deploy on Google Kubernetes Engine
+## Steps to deploy langflow-runtime on Google Kubernetes Engine
 
 1. **Open Google Cloud Shell**
    - Go to the [Google Cloud Console](https://console.cloud.google.com/) and click the Cloud Shell icon in the top right.
