@@ -14,14 +14,15 @@
 ## Steps to deploy langflow-runtime on Google Kubernetes Engine
 1. **Create a Kubernetes Cluster on Google Workspace Console**
 2. **Open Google Cloud Shell of your newly created cluster**
+
    In your google console, click the clusters tabs and click the setting of your cluster, then click connect and click execute in cloud shell.
-3. **Authenticate and Set Project if you didn**
+4. **Authenticate and Set Project if you didn**
    ```sh
    gcloud auth login
    gcloud config set project YOUR_PROJECT_ID
    ```
 
-4. **Install Helm if not already installed**
+5. **Install Helm if not already installed**
   * Skip this step if ur on Google Cloud Shell
    ```sh
    curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
