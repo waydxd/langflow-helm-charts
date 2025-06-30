@@ -8,10 +8,7 @@ image:
 downloadFlows:
   path: /app/flows
   flows:
-   - url: https://raw.githubusercontent.com/waydxd/plate/refs/heads/main/Menu%20flow%20v1.json
-#      basicAuth: "myuser:mypassword"
-#      headers:
-#        Authorization: "Bearer my-key"
+   - url: https://raw.githubusercontent.com/waydxd/langflow-helm-charts/refs/heads/main/Menu%20flow%20v1.json
 
 imagePullSecrets: []
 nameOverride: ""
