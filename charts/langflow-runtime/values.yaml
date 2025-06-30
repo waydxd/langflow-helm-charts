@@ -7,8 +7,8 @@ image:
 
 downloadFlows:
   path: /app/flows
-#  flows:
-#    - url: https://raw.githubusercontent.com/langflow-ai/langflow/dev/tests/data/basic_example.json
+  flows:
+   - url: https://raw.githubusercontent.com/waydxd/plate/refs/heads/main/Menu%20flow%20v1.json
 #      basicAuth: "myuser:mypassword"
 #      headers:
 #        Authorization: "Bearer my-key"
@@ -67,7 +67,7 @@ env:
 
 
 service:
-  type: ClusterIP
+  type: LoadBalancer # Exposed as a LoadBalancer service
   port: 7860
 
 ingress:
@@ -86,26 +86,36 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-resources: {}
+resources: 
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  requests:
+    cpu: 1000m     # Reserve 1 full core
+    memory: 1Gi    # Reserve 1Gi RAM
+  limits:
+    cpu: 2000m     # Allow burst up to 2 cores
+    memory: 2Gi    # Cap memory at 2Gi
+
 
 livenessProbe:
   httpGet:
     path: /api/v1/version
-    port: http
+    port: 7860
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 15
+  failureThreshold: 1
+
 readinessProbe:
   httpGet:
     path: /api/v1/version
-    port: http
+    port: 7860
+  initialDelaySeconds: 50
+  periodSeconds: 10
+  timeoutSeconds: 20
+  failureThreshold: 1
 
 volumes:
   - name: flows
